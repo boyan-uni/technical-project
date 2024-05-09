@@ -1,1 +1,1 @@
--
+- [Part01 - Maven(版本3.6.3) ](https://github.com/boyan-uni/Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-01-Maven.md) 文档
