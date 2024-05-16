@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        id -> getObject 方法返回的对象的标识
+        class -> 实现 factoryBean 接口的标准化工厂类
+      -->
+    <bean id="javaBean" class="com.boyan.ioc_05.JavaBeanFactory">
+        <!-- 此处配置的赋值，是给 JavaBeanFactory类 的 value 属性赋值，做一个中间桥接，外界对 javaBeanFactory 赋值，javaBeanFactory 内部给 javaBean 赋值-->
+        <property name="name" value="hello world"/>
+    </bean>
+    <!-- JavaBean 和 JavaBeanFactory 都在 IoC容器 中，JavaBeanFactory 的 id：&id，这里是 &javaBean-->
+
+</beans>

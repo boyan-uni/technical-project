@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 实验1: [重要]创建bean -->
+
+    <!-- 1. 基于无参数构造函数 - IoC 配置-->
+    <bean id="happyComponent1" class="com.boyan.ioc_01.HappyComponent"/>
+    <bean id="happyComponent2" class="com.boyan.ioc_01.HappyComponent"/>
+    <!--
+        - bean标签：通过配置bean标签告诉IOC容器需要创建对象的组件信息
+        - id属性：bean的唯一标识,方便后期获取Bean！
+        - class属性：组件类的全限定符！
+        - 注意：要求当前组件类必须包含 无参数构造函数！
+    -->
+
+
+    <!-- 2. 基于静态工厂方法实例化 - IoC 配置-->
+    <bean id="clientService" class="com.boyan.ioc_01.ClientService" factory-method="createInstance"/>
+    <!--- factory-method: 指定静态工厂方法，注意，该方法必须是static方法。 -->
+
+
+    <!-- 3. 基于实例工厂方法实例化 - IoC 配置-->
+    <!-- 1️⃣将工厂类进行ioc配置 -->
+    <bean id="serviceLocator" class="com.boyan.ioc_01.DefaultServiceLocator">
+    </bean>
+    <!-- 2️⃣根据指定的 工厂对象 的实例工厂方法 进行实例化组件对象 -->
+    <bean id="clientService2" factory-bean="serviceLocator" factory-method="createClientServiceInstance"/>
+</beans>
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 实验2: Bean 组件 - DI - 依赖注入配置 -->
+
+    <!-- 1. 基于构造函数的依赖注入（单个构造参数）- DI 配置-->
+    <bean name="userDao" class="com.boyan.ioc_02.UserDao"/>
+    <bean name="userService1" class="com.boyan.ioc_02.UserService">
+        <constructor-arg ref="userDao"/>
+    </bean>
+    <!-- - 1）引用和被引用的组件都要在 spring 配置文件中声明
+           2）引用和被引用的组件，声明顺序不重要，没有先后。因为 spring ioc container 是一个高级容器，内部会有缓存动作
+           3）不管什么类型，值都是字符串形式，直接类型： value = ""，引用类型：ref = “被引用对象 id ，即 bean 的名称
+            -->
+
+    <!-- 2. 基于构造函数的依赖注入（多个构造参数）- DI 配置 - 3种配置方法-->
+    <!-- 2-1. 按顺序直接赋值 -->
+    <bean name="userService21" class="com.boyan.ioc_02.UserService">
+        <constructor-arg ref="userDao"/>
+        <constructor-arg value="boyan"/>
+        <constructor-arg value="18"/>
+    </bean>
+    <!-- 2-2. 按参数 name 直接赋值，不用考虑顺序 * 最推荐 -->
+    <bean name="userService22" class="com.boyan.ioc_02.UserService">
+        <constructor-arg name="userDao" ref="userDao"/>
+        <constructor-arg name="name" value="boyan"/>
+        <constructor-arg name="age" value="18"/>
+    </bean>
+    <!-- 2-3. 按 UserDao userDao, String name, int age 参数列表，index 从左到右 从 0 开始 -->
+    <bean name="userService23" class="com.boyan.ioc_02.UserService">
+        <constructor-arg index="0" ref="userDao"/>
+        <constructor-arg index="1" value="boyan"/>
+        <constructor-arg index="2" value="18"/>
+    </bean>
+
+    <!-- 3. 基于 Setter 方法 依赖注入（一个类是另一个的属性，使用 setter 方法注入）- DI 配置-->
+    <bean name="movieFinder" class="com.boyan.ioc_02.MovieFinder"/>
+    <bean name="simpleMovieLister" class="com.boyan.ioc_02.SimpleMovieLister">
+        <property name="movieFinder" ref="movieFinder"/>
+        <property name="movieName" value="消失的她（泰国版）"/>
+        <!-- property 的 name 字段实际配置的是去掉set，首字母小写后的 方法名：setMovieFinder -> name = movieFinder -->
+    </bean>
+</beans>
