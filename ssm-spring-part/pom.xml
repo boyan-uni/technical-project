@@ -14,12 +14,20 @@
     <modules>
         <module>spring-ioc-xml-01</module>
         <module>spring-ioc-xml-practice-02</module>
+        <module>spring-ioc-annotation-practice-04</module>
+        <module>spring-ioc-annotation-03</module>
+        <module>spring-ioc-annotation-practice-05</module>
+        <module>spring-java-practice-06</module>
+        <module>spring-test-annotation-07</module>
     </modules>
 
     <!-- 统一管理版本号 -->
     <properties>
         <spring.version>6.0.6</spring.version>
         <junit.version>5.3.1</junit.version>
+        <mysql.version>8.0.25</mysql.version>
+        <druid.version>1.2.8</druid.version>
+        <spring-jdbc.version>6.0.6</spring-jdbc.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,17 +36,49 @@
     <!-- dependencyManagement: 在 父工程 中配置 dependency，不会被子工程直接继承，需要显式声明继承 -->
     <!-- *这里 - dependencies: 在 父工程 直接配置的 dependency, 会被子工程直接继承 -->
     <dependencies>
-        <!--spring context 6.0.6 依赖 传递 - core - beans-->
+        <!-- spring context 6.0.6 依赖 传递 - core - beans -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!--junit5测试-->
+
+        <!-- junit5 测试 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- jakarta.annotation @Resource 注解-->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+        <!-- 数据库驱动和连接池-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+        <!-- spring-jdbc -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring-jdbc.version}</version>
         </dependency>
     </dependencies>
 

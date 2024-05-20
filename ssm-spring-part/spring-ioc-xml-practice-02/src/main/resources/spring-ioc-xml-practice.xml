@@ -21,13 +21,13 @@
     </bean>
 
     <!-- XML 整合 三层架构组件配置 -->
-    <bean id="studentController" class="com.boyan.controller.StudentController">
+    <bean id="studentController" class="com.controller.com.boyan.StudentController">
         <property name="studentService" ref="studentService"/>
     </bean>
-    <bean id="studentService" class="com.boyan.service.impl.StudentServiceImpl">
+    <bean id="studentService" class="com.impl.service.com.boyan.StudentServiceImpl">
         <property name="studentDao" ref="studentDao"/>
     </bean>
-    <bean id="studentDao" class="com.boyan.dao.impl.StudentDaoImpl">
+    <bean id="studentDao" class="com.impl.dao.com.boyan.StudentDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 

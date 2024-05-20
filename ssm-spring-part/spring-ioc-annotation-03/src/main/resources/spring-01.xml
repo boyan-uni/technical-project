@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 在spring配置文件中，使用context命名空间，并开启组件扫描功能，配置注解生效包信息 -->
+
+    <!-- 情况1. 普通配置包扫描 -->
+    <!-- base-package 指定 IoC Container 去哪些包下查找注解类
+         1.包要精准,提高性能! 会扫描指定的包和子包内容，指定包，相当于指定包中所有类；
+         2.多个包 用逗号 , 分割 例如: com.boyan.controller,com.boyan.service等；
+    -->
+    <context:component-scan base-package="com.boyan.ioc_01"/>
+
+    <!-- 情况2. 配置排除规则：指定不扫描的组件 -->
+    <context:component-scan base-package="com.boyan.ioc_01">
+        <!-- 扫描 指定 package，排除 Controller 组件 -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+             <!-- context:exclude-filter标签：指定排除规则 -->
+             <!-- type属性：指定根据什么来进行排除，annotation取值表示根据注解来排除 -->
+             <!-- expression属性：指定排除规则的表达式，对于注解来说指定全类名即可 -->
+    </context:component-scan>
+
+    <!-- 情况3. 仅扫描指定的组件 -->
+    <context:component-scan base-package="com.boyan.ioc_01" use-default-filters="false">
+        <!-- 仅扫描 = 关闭默认规则 + 追加规则 -->
+            <!-- base-package 属性：该包下所有注解都生效 -->
+            <!-- use-default-filters 属性：取值false表示关闭默认扫描规则 -->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <!-- context:include-filter标签：指定在原有扫描规则的基础上追加的规则 只扫描这个类型⬆️ -->
+    </context:component-scan>
+
+</beans>

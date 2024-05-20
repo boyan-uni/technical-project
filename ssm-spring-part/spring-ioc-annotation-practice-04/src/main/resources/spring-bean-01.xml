@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 配置组件扫描 IoC / DI 注解-->
+    <context:component-scan base-package="com.boyan.dao,com.boyan.service,com.boyan.controller"/>
+    <!-- 导入外部属性文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!--配置引入数据库依赖：jdbcTemplate druidDataSource-->
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="${boyan.url}"/>
+        <property name="driverClassName" value="${boyan.driverClassName}"/>
+        <property name="username" value="${boyan.username}"/>
+        <property name="password" value="${boyan.password}"/>
+    </bean>
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="druidDataSource"/>
+    </bean>
+</beans>
