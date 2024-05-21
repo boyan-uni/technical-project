@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 进行包扫描-->
+    <context:component-scan base-package="com.boyan"/>
+    <!-- 开启aspectj框架注解支持-->
+    <aop:aspectj-autoproxy/>
+
+    <!-- TODO: ⬇️ 使用 XML 配置方式 进行 aop 配置：切面配置、声明切点、位置指定 -->
+    <!-- 配置目标类的bean -->
+    <bean id="calculatorPure" class="com.boyan.CalculatorPureImpl"/>
+
+    <!-- 配置切面类的bean -->
+    <bean id="logAspect" class="com.boyan.advice.LogAspect"/>
+
+    <!-- 配置AOP -->
+    <aop:config>
+
+        <!-- 配置切入点表达式 -->
+        <aop:pointcut id="logPointCut" expression="execution(* *..*.*(..))"/>
+
+        <!-- aop:aspect标签：配置切面 -->
+        <!-- ref属性：关联切面类的bean -->
+        <aop:aspect ref="logAspect">
+            <!-- aop:before标签：配置前置通知 -->
+            <!-- method属性：指定前置通知的方法名 -->
+            <!-- pointcut-ref属性：引用切入点表达式 -->
+            <aop:before method="printLogBeforeCore" pointcut-ref="logPointCut"/>
+
+            <!-- aop:after-returning标签：配置返回通知 -->
+            <!-- returning属性：指定通知方法中用来接收目标方法返回值的参数名 -->
+            <aop:after-returning method="printLogAfterSuccess" pointcut-ref="logPointCut"/><!-- returning="" -->
+
+            <!-- aop:after-throwing标签：配置异常通知 -->
+            <!-- throwing属性：指定通知方法中用来接收目标方法抛出异常的异常对象的参数名 -->
+            <aop:after-throwing method="printLogAfterException" pointcut-ref="logPointCut"/><!-- throwing="" -->
+
+            <!-- aop:after标签：配置后置通知 -->
+            <aop:after method="printLogFinallyEnd" pointcut-ref="logPointCut"/>
+
+            <!-- aop:around标签：配置环绕通知 -->
+            <!--<aop:around method="……" pointcut-ref="logPointCut"/>-->
+        </aop:aspect>
+
+    </aop:config>
+
+
+</beans>

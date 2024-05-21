@@ -19,6 +19,8 @@
         <module>spring-ioc-annotation-practice-05</module>
         <module>spring-java-practice-06</module>
         <module>spring-test-annotation-07</module>
+        <module>spring-aop-annotation-09</module>
+        <module>spring-aop-annotation-10</module>
     </modules>
 
     <!-- 统一管理版本号 -->
@@ -27,7 +29,6 @@
         <junit.version>5.3.1</junit.version>
         <mysql.version>8.0.25</mysql.version>
         <druid.version>1.2.8</druid.version>
-        <spring-jdbc.version>6.0.6</spring-jdbc.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,7 +37,7 @@
     <!-- dependencyManagement: 在 父工程 中配置 dependency，不会被子工程直接继承，需要显式声明继承 -->
     <!-- *这里 - dependencies: 在 父工程 直接配置的 dependency, 会被子工程直接继承 -->
     <dependencies>
-        <!-- spring context 6.0.6 依赖 传递 - core - beans -->
+        <!-- spring context 6.0.6 依赖 传递 - core - beans - aop -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -49,9 +50,18 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.version}</version>
         </dependency>
+        <!-- spring-test 测试 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- spring-aspectJ 模块（早期 aop 思维框架，spring-aop 模块已整合到 spring-context 模块 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
             <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
@@ -74,11 +84,11 @@
             <artifactId>druid</artifactId>
             <version>${druid.version}</version>
         </dependency>
-        <!-- spring-jdbc -->
+        <!-- spring-jdbc 模块-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>${spring-jdbc.version}</version>
+            <version>${spring.version}</version>
         </dependency>
     </dependencies>
 
