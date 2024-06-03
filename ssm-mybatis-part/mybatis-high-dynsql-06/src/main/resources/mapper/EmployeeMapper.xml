@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace == mapper接口类的全限定名 -->
+<mapper namespace="com.boyan.mapper.EmployeeMapper">
+
+
+    <!-- Mapper 接口 -  List<Employee> query(@Param("name") String name, @Param("salary") Double salary); -->
+    <select id="query" resultType="employee">
+        select * from t_emp
+        <where>
+            <if test="name != null">
+                emp_name = #{name}
+            </if>
+            <if test="salary != null and salary &gt; 100">
+                and emp_salary = #{salary}
+            </if>
+        </where>
+    </select>
+    <!--
+      if - 判断传入的参数，根据判断结果确定最终是否添加语句
+           test = “条件判断” 属性 - true 添加 / false 删去
+                  条件编写 - 关键词 and or &gt;(>) &lt;(<)
+
+      where - 作用 ： 动态管理 where and or 关键字
+           1） 根据 if 的 test 结果 自动删去 if 中 多余的 and ｜ or 关键字
+           2） 替换 sql 语句中的 where，当 where 内部有任何一个 if 满足时，自动添加 where 关键字，没有满足的时自动去掉 where
+     -->
+    <!--
+         第一种情况：所有条件都满足 WHERE emp_name=? or emp_salary>?
+         第二种情况：部分条件满足 WHERE emp_salary>?
+         第三种情况：所有条件都不满足 没有where子句
+     -->
+
+    <!-- Mapper 接口 - void updateEmployeeDynamic(Employee employee); -->
+    <update id="updateEmployeeDynamic">
+        update t_emp
+        <!-- set emp_name=#{empName}, emp_salary=#{empSalary} -->
+        <!-- 使用set标签动态管理set子句，并且动态去掉两端多余的逗号 -->
+        <set>
+            <if test="empName != null">
+                emp_name=#{empName},
+            </if>
+            <if test="empSalary &lt; 3000">
+                emp_salary=#{empSalary},
+            </if>
+        </set>
+        where emp_id=#{empId}
+    </update>
+
+    <!-- 没有set子句的update语句会导致SQL语法错误
+         第一种情况：所有条件都满足 SET emp_name=?, emp_salary=?
+         第二种情况：部分条件满足 SET emp_salary=?
+         第三种情况：所有条件都不满足 update t_emp where emp_id=?
+     -->
+
+
+    <!-- Mapper 接口 - List<Employee> selectEmployeeByConditionByTrim(Employee employee) -->
+    <select id="selectEmployeeByConditionByTrim" resultType="employee">
+        select emp_id,emp_name,emp_age,emp_salary,emp_gender
+        from t_emp
+
+        <!-- prefix属性指定要动态添加的前缀 -->
+        <!-- suffix属性指定要动态添加的后缀 -->
+        <!-- prefixOverrides属性指定要动态去掉的前缀，使用“|”分隔有可能的多个值 -->
+        <!-- suffixOverrides属性指定要动态去掉的后缀，使用“|”分隔有可能的多个值 -->
+        <!-- 当前例子用where标签实现更简洁，但是trim标签更灵活，可以用在任何有需要的地方 -->
+        <trim prefix="where" suffixOverrides="and|or">
+            <if test="empName != null">
+                emp_name=#{empName} and
+            </if>
+            <if test="empSalary &gt; 3000">
+                emp_salary>#{empSalary} and
+            </if>
+            <if test="empAge &lt;= 20">
+                emp_age=#{empAge} or
+            </if>
+            <if test="empGender=='male'">
+                emp_gender=#{empGender}
+            </if>
+        </trim>
+    </select>
+
+
+    <!-- 批量操作：查询query 删除delete 插入insert 更新update
+    List<Employee> queryBatch(@Param("ids")List<Integer> ids);
+    int deleteBatch(@Param("ids")List<Integer> ids);
+    int insertBatch(@Param("employeeList")List<Employee> employeeList);
+    int updateBatch(@Param("employeeList")List<Employee> employeeList);
+    -->
+    <select id="queryBatch" resultType="employee">
+        select * from t_emp where emp_id in
+        <!-- 批量遍历 -->
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        <!--
+        to 遍历的数据：(1,2,3)
+
+        collection - "ids|arg0|list"
+        open - 遍历之前要追加的字符串
+        close - 遍历结束要追加的字符串
+        separator - 每次遍历的分隔符号，很智能，如果是最后一次遍历不会追加
+        item - 获取每个遍历项
+
+        <foreach> 标签中是每条遍历的数据项，#{遍历数据项 == item 指定的 key}
+        -->
+    </select>
+    <delete id="deleteBatch">
+        delete from t_emp where id in
+        <!-- 批量遍历 -->
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <insert id="insertBatch">
+        insert into t_emp(emp_name,emp_salary) values
+        <!-- 批量遍历 -->
+        <foreach collection="employeeList" separator="," item="employee">
+            (#{employee.emp_name}, #{employee.emp_salary})
+            <!-- ("xx",200) , ("xx",200) , ("xx",200) ... -->
+        </foreach>
+    </insert>
+    <update id="updateBatch">
+        <!-- 等于多个遍历语句 -->
+        <foreach collection="employeeList" item="emp">
+            update t_emp set emp_name = #{employee.empName}, emp_salary = #{employee.empSalary} where emp_id = #{employee.empId};
+        </foreach>
+        <!-- 如果一个标签涉及多条语句，需要在数据库url中设置允许多条语句: 数据库url?allowMultiQueries=true（mybatis-config.xml中添加就可以）-->
+    </update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

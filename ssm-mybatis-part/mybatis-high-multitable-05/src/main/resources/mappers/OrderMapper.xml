@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace == mapper接口类的全限定名 -->
+<mapper namespace="com.boyan.mapper.OrderMapper">
+
+    <resultMap id="selectOrderWithCustomerResultMap" type="order">
+        <!-- Order 类型 属性映射 -->
+        <id column="order_id" property="orderId"/><!-- 主键 -->
+        <!--result column="order_name" property="orderName"/--><!-- 普通属性 -->
+        <!--result column="customer_id" property="customerId"/--><!-- 普通属性 -->
+        <!-- 进一步配置 Order - Customer 对一映射 查询结果实体关系 -->
+        <association property="customer" javaType="customer">
+            <id column="customer_id" property="customerId"/><!-- 主键 -->
+            <!--result column="customer_name" property="customerName"/--><!-- 普通属性 -->
+        </association>
+    </resultMap>
+
+    <select id="selectOrderWithCustomer" resultMap="selectOrderWithCustomerResultMap">
+        <!-- sql 语句 -->
+        SELECT order_id,order_name,c.customer_id,customer_name
+        FROM t_order o
+        LEFT JOIN t_customer c
+        ON o.customer_id=c.customer_id
+        WHERE o.order_id=#{orderId}
+    </select>
+</mapper>

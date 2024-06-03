@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace == mapper接口类的全限定名 -->
+<mapper namespace="com.boyan.mapper.EmployeeMapper">
+
+    <!-- 场景1: 单个 简单类型 参数 - key: 随便写，一般情况下推荐使用参数名！ -->
+    <select id="queryById" resultType="com.boyan.pojo.Employee02">
+        select emp_id empId,emp_name empName,emp_salary empSalary from t_emp where emp_id=#{empId}
+    </select>
+
+    <!-- 场景2: 单个 实体类类型 参数 - key: 写 属性名 即可！ -->
+    <insert id="insertEmployee">
+        insert into t_emp(emp_name,emp_salary) values(#{empName},#{empSalary})
+    </insert>
+
+    <!-- 场景3: 零散的多个 简单类型 参数 - key 的写法
+               方案1 - (推荐) 注解指定 @Param注解  指定多个简单参数的 key  key = @Param("value值");
+               方案2 - mybatis 默认机制
+                       机制1 - arg0 arg1 ... 形参从左到右依次对应  无需使用@Param注解
+                              例： (name,salary) 两个参数：name -对应-> key = arg0; salary -对应-> key = arg1;
+                       机制2 - param1 param2 ... 起始坐标从 1 开始，arg 是从 0 开始的；
+    -->
+    <update id="updateEmployee">
+        update t_emp set emp_salary=#{empSalary} where emp_id=#{empId}
+    </update>
+
+    <!-- 场景4: Map 类型 参数 - HashMap<String key,Object value> 通过往哈希表中存值传参 - key = map 的 key 即可！ -->
+    <update id="updateEmployeeByMap">
+        update t_emp set emp_salary=#{empSalaryKey} where emp_id=#{empIdKey}
+    </update>
+</mapper>
