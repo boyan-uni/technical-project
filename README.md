@@ -1,3 +1,4 @@
 - [Part01 - Maven(版本3.6.3) ](https://github.com/boyan-uni/Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-01-Maven.md) 文档
 - [Part02 - Spring6 - SpringFramework - 实战指南 - 精华总结版](https://github.com/boyan-uni/Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-02-Spring6-SpingFramework-(ioc-aop-tx).md) 文档
 - [Part03 - MyBatis3 - 持久层框架 - 实战指南 - 精华总结版](https://github.com/boyan-uni/BOYAN-Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-03-MyBatis3-%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6.md) 文档
+- [Part04 - SpringMVC - MVC框架 - 实战指南 - 精华总结版](https://github.com/boyan-uni/BOYAN-Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-04-SpringWebMVC-%E8%A1%A8%E8%BF%B0%E5%B1%82%E6%A1%86%E6%9E%B6.md)
