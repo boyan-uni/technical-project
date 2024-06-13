@@ -15,6 +15,7 @@
         <module>ssm-spring-part</module>
         <module>ssm-mybatis-part</module>
         <module>ssm-springmvc-part</module>
+        <module>ssm-integration-part</module>
     </modules>
 
     <properties>
