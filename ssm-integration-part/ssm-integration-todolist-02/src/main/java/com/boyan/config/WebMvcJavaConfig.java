@@ -20,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.*;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.boyan.controller"}) // exceptionHandler 如果有全局异常处理器，也需要扫描，属于 springmvc
+@ComponentScan("com.boyan.controller") // exceptionHandler 如果有全局异常处理器，也需要扫描，属于 springmvc
 public class WebMvcJavaConfig implements WebMvcConfigurer {
 
     /*

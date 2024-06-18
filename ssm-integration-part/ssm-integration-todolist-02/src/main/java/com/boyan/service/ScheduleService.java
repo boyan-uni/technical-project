@@ -7,13 +7,15 @@ import java.util.List;
 
 public interface ScheduleService {
 
+    // 分页查询
     R queryPage(int pageSize, int currentPage);
-    List<Schedule> list();
+    // 不分页获取 list
+    R list();
 
-    void insert(Schedule schedule);
+    R insert(Schedule schedule);
 
-    void deleteById(Integer id);
+    R deleteById(Integer id);
 
-    void update(Schedule schedule);
+    R update(Schedule schedule);
 
 }

@@ -14,7 +14,6 @@ public class R {
 
     private Object data;  //返回具体数据
 
-
     public  static R ok(Object data){
         R r = new R();
         r.data = data;

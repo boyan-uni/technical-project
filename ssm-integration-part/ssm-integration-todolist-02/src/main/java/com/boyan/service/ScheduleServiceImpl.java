@@ -16,14 +16,14 @@ import java.util.List;
 @Service
 public class ScheduleServiceImpl implements ScheduleService{
 
-    @Resource
+    @Resource // == @Autowired + @Qualifier
     private ScheduleMapper scheduleMapper;
 
     /**
-     * 分页、查询、分页数据装配
+     * 分页查询，具体步骤：分页、查询、分页数据装配
      *
-     * @param pageSize
-     * @param currentPage
+     * @param pageSize int 每页显示条数
+     * @param currentPage int 当前页数
      * @return
      */
     @Override
@@ -36,39 +36,56 @@ public class ScheduleServiceImpl implements ScheduleService{
         PageInfo<Schedule> pageInfo = new PageInfo<>(scheduleList);
         //4.pageBean封装
         PageBean<Schedule> pageBean = new PageBean<>(currentPage,pageSize,pageInfo.getTotal(),pageInfo.getList());
-
-        R ok = R.ok(pageBean);
-
         log.info("分页查询结果:{}",pageBean);
-        return ok;
+
+        // 返回结果
+        R r = R.ok(pageBean);
+        return r;
     }
 
     @Override
-    public List<Schedule> list() {
-        return scheduleMapper.list();
+    public R list() {
+        R r = R.ok(scheduleMapper.list());
+        return r;
     }
 
     /**
      * @param schedule
      */
     @Override
-    public void insert(Schedule schedule) {
-        scheduleMapper.insert(schedule);
+    public R insert(Schedule schedule) {
+        int response = scheduleMapper.insert(schedule);
+        if (response == 1) {
+            return R.ok(null);
+        } else {
+            return R.fail(null);
+        }
+
     }
 
     /**
      * @param id
      */
     @Override
-    public void deleteById(Integer id) {
-        scheduleMapper.deleteById(id);
+    public R deleteById(Integer id) {
+        int response = scheduleMapper.deleteById(id);
+        if (response == 1) {
+            return R.ok(null);
+        } else {
+            return R.fail(null);
+        }
     }
 
     /**
      * @param schedule
      */
     @Override
-    public void update(Schedule schedule) {
-        scheduleMapper.update(schedule);
+    public R update(Schedule schedule) {
+        int response = scheduleMapper.update(schedule);
+        if (response == 1) {
+            return R.ok(null);
+        } else {
+            return R.fail(null);
+        }
     }
 }

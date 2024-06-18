@@ -5,59 +5,72 @@ import com.boyan.service.ScheduleService;
 import com.boyan.pojo.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 控制层只负责两件事：接收参数 ｜ 响应结果
  */
-
-@Controller
+@CrossOrigin
+@RestController // == @Controller + @ResponseBody
 @RequestMapping("schedule")
-@Slf4j
-@ResponseBody
+// @Slf4j
 public class ScheduleController {   // 在后端 @Controller层 设置允许非同源访问 restful服务
 
     @Autowired
     private ScheduleService scheduleService;
 
     @GetMapping("/{pageSize}/{currentPage}")
-    public R page(@PathVariable Integer pageSize, @PathVariable Integer currentPage)
+    public R page(@PathVariable(name = "pageSize") Integer pageSize, @PathVariable(name = "currentPage") Integer currentPage)
     {
-        // PageBean pageBean = scheduleService.queryPage(pageSize, currentPage);
         R r = scheduleService.queryPage(pageSize, currentPage);
         // sl4fj
-        log.info("查询的数据为：{}",r);
-        return R.ok(r);
+        // log.info("响应结果：{}",r);
+        return r;
     }
 
     @GetMapping
-    public List<Schedule> listAll()
+    public R listAll()
     {
-        List<Schedule> list = scheduleService.list();
-        return list;
+        R r = scheduleService.list();
+        // sl4fj
+        // log.info("响应结果：{}",r);
+        return r;
     }
 
     @PostMapping
-    public R insert(@RequestBody Schedule schedule)
+    public R insert(@Validated @RequestBody Schedule schedule, BindingResult result)
     {
-        scheduleService.insert(schedule);
-        return R.ok(null);
+        if (result.hasErrors())
+        {
+            return R.fail("参数为空，不能保存");
+        }
+        R r = scheduleService.insert(schedule);
+        // sl4fj
+        // log.info("响应结果：{}",r);
+        return r;
     }
 
     @DeleteMapping("{id}")
     public R deleteById(@PathVariable Integer id)
     {
-        scheduleService.deleteById(id);
-        return R.ok(null);
+        R r = scheduleService.deleteById(id);
+        // sl4fj
+        // log.info("响应结果：{}",r);
+        return r;
     }
 
     @PutMapping
-    public R update(@RequestBody Schedule schedule)
+    public R update(@Validated @RequestBody Schedule schedule, BindingResult result)
     {
-        scheduleService.update(schedule);
-        return R.ok(null);
+        if (result.hasErrors())
+        {
+            return R.fail("参数为空，不能更新");
+        }
+        R r = scheduleService.update(schedule);
+        // sl4fj
+        // log.info("响应结果：{}",r);
+        return r;
     }
 }
