@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController // == @Controller + @ResponseBody
 @RequestMapping("schedule")
-// @Slf4j
+@Slf4j
 public class ScheduleController {   // 在后端 @Controller层 设置允许非同源访问 restful服务
 
     @Autowired
