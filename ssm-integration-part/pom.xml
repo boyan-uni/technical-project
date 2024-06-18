@@ -11,6 +11,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>ssm-integration-01</module>
+      <module>ssm-integration-todolist-02</module>
   </modules>
 
   <!-- SSM 整合所有所需要的依赖 -->

@@ -13,9 +13,6 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    /**
-     * @return
-     */
     @Override
     public List<EmployeeSsm01> queryList() {
         return employeeMapper.queryList();
