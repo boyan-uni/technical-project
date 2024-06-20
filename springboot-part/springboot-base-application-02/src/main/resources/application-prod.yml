@@ -1,0 +1,7 @@
+spring:
+  jdbc:
+    datasource:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql:///prod
+      username: root
+      password: root

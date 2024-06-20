@@ -1,0 +1,16 @@
+# 8080 端口总是被占用，所以使用 80 端口
+server:
+  port: 80
+
+
+spring:
+  # 配置 DataSource
+  jdbc:
+    datasource:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://jdbc:mysql://localhost:3306/mybatis-example
+      user: root
+      password: 1234568
+  # 开发环境模式激活
+  profiles:
+    active: dev

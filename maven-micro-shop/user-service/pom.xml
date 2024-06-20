@@ -10,7 +10,7 @@
     <version>1.0-SNAPSHOT</version> 
   </parent>  
   <!-- 配置 当前工程 GAVP 坐标 -->  
-  <artifactId>user-service</artifactId>  
+  <artifactId>userBoot-service</artifactId>
   <packaging>war</packaging> <!-- 通过插件 JBLJavaToWeb 转换模块 -->
 
   <properties> 

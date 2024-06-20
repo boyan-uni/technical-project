@@ -1,0 +1,7 @@
+spring:
+  jdbc:
+    datasource:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql:///test
+      username: root
+      password: root

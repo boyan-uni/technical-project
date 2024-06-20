@@ -8,26 +8,26 @@
 
     <!-- 定义一个插入语句，并获取主键值 -->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user(username, password)
+        INSERT INTO userBoot(username, password)
         VALUES(#{username}, #{password})
     </insert>
 
     <update id="update">
-        UPDATE user SET username=#{username}, password=#{password}
+        UPDATE userBoot SET username=#{username}, password=#{password}
         WHERE id=#{id}
     </update>
 
     <delete id="delete">
-        DELETE FROM user WHERE id=#{id}
+        DELETE FROM userBoot WHERE id=#{id}
     </delete>
     <!-- resultType使用user别名，稍后需要配置！-->
-    <select id="selectById" resultType="user">
-        SELECT id, username, password FROM user WHERE id=#{id}
+    <select id="selectById" resultType="userBoot">
+        SELECT id, username, password FROM userBoot WHERE id=#{id}
     </select>
 
     <!-- resultType返回值类型为集合，所以只写范型即可！ -->
-    <select id="selectAll" resultType="user">
-        SELECT id, username, password FROM user
+    <select id="selectAll" resultType="userBoot">
+        SELECT id, username, password FROM userBoot
     </select>
 
 </mapper>

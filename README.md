@@ -1,5 +1,8 @@
-- [Part01 - Maven(版本3.6.3) ](https://github.com/boyan-uni/Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-01-Maven.md) 
-- [Part02 - Spring6 - SpringFramework - 实战指南 - 精华总结版](https://github.com/boyan-uni/Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-02-Spring6-SpingFramework-(ioc-aop-tx).md) 
-- [Part03 - MyBatis3 - 持久层框架 - 实战指南 - 精华总结版](https://github.com/boyan-uni/BOYAN-Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-03-MyBatis3-%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6.md) 
-- [Part04 - SpringMVC - MVC框架 - 实战指南 - 精华总结版](https://github.com/boyan-uni/BOYAN-Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-04-SpringWebMVC-%E8%A1%A8%E8%BF%B0%E5%B1%82%E6%A1%86%E6%9E%B6.md)
-- [Part05 - SSM整合原理与实战 - 精华总结版](https://github.com/boyan-uni/BOYAN-Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-05-SSM-%E6%95%B4%E5%90%88%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98.md)
+# 开发笔记 之【Maven + SSM + SpringBoot3 + MyBatisPlus】系列
+
+- [Part01 - Maven (版本3.6.3) ](https://github.com/boyan-uni/Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-01-Maven.md) 
+- [Part02 - SSM - Spring6 - SpringFramework [IoC|DI|AOP|TX]](https://github.com/boyan-uni/Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-02-Spring6-SpingFramework-(ioc-aop-tx).md) 
+- [Part03 - SSM - MyBatis3 - 持久层框架](https://github.com/boyan-uni/BOYAN-Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-03-MyBatis3-%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6.md) 
+- [Part04 - SSM - SpringMVC - 表述层框架](https://github.com/boyan-uni/BOYAN-Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-04-SpringWebMVC-%E8%A1%A8%E8%BF%B0%E5%B1%82%E6%A1%86%E6%9E%B6.md)
+- [Part05 - SSM - 整合原理与实战](https://github.com/boyan-uni/BOYAN-Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-05-SSM-%E6%95%B4%E5%90%88%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98.md)
+- [Part06 - SpringBoot3 - 快速启动框架](https://github.com/boyan-uni/BOYAN-Personal-Knowledge-Management-Document-as-Code-Repository/blob/main/docs/myrepo/technique-develop-project/ssm-06-SpringBoot3-%E5%BF%AB%E9%80%9F%E5%90%AF%E5%8A%A8%E6%A1%86%E6%9E%B6-%E6%95%B4%E5%90%88SpringMVCDruidMyBatis.md)

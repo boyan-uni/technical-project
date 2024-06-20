@@ -15,7 +15,7 @@
     <typeAliases>
         <!-- 给具体的实体类起别名（指定值）-->
         <typeAlias alias="List" type="java.util.List"/>
-        <!-- 给实体类起别名 : 该package下所有实体类自动起小写别名，可以直接用 eg.User.java -> user-->
+        <!-- 给实体类起别名 : 该package下所有实体类自动起小写别名，可以直接用 eg.User.java -> userBoot-->
         <package name="com.boyan.pojo"/>
     </typeAliases>
 
