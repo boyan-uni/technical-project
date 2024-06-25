@@ -1,0 +1,19 @@
+web:
+  port: 80         # 端口号
+  servlet:
+    context-path: /  # 项目根路径
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # druid 连接池配置
+      url: jdbc:mysql://localhost:3306/mybatis-example
+      username: root
+      password: 12345678
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl   # 日志
+    map-underscore-to-camel-case: true

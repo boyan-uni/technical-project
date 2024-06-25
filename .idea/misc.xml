@@ -8,6 +8,11 @@
         <option value="$PROJECT_DIR$/springboot-part/springboot-base-quickstart-01/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-part/springboot-base-application-02/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-part/springboot-integration-web-druid-mybatis-03/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatisPlus-part/mybatisPlus-base-quickstart-01/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatisPlus-part/mybatisPlus-curd-mapper-02/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatisPlus-part/mybatisPlus-curd-service-02/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatisPlus-part/mybatisPlus-curd-service-03/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatisPlus-part/mybatisPlus-other-04/pom.xml" />
       </list>
     </option>
   </component>
