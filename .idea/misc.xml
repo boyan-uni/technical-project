@@ -13,7 +13,18 @@
         <option value="$PROJECT_DIR$/mybatisPlus-part/mybatisPlus-curd-service-02/pom.xml" />
         <option value="$PROJECT_DIR$/mybatisPlus-part/mybatisPlus-curd-service-03/pom.xml" />
         <option value="$PROJECT_DIR$/mybatisPlus-part/mybatisPlus-other-04/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-microheadline-part/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-micro-headline-part/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-headline-part/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-part/springboot-healine-part/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/springboot-headline-part/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-micro-headline-part/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-microheadline-part/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">

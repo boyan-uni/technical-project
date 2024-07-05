@@ -1,0 +1,30 @@
+# server 配置
+server:
+  port: 8082
+  servlet:
+    context-path: /
+
+# druid 连接池配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://localhost:3306/sm_db
+      username: root
+      password: 12345678
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+# mybatis-plus 的配置
+mybatis-plus:
+  type-aliases-package: com.boyan.pojo  # 别名设置
+  global-config:
+    db-config:
+      logic-delete-field: isDeleted     # 全局逻辑删除
+      id-type: auto                     # 主键策略自增长
+      table-prefix: news_               # 设置表的前缀
+
+# jwt 配置 [Json Web Token]
+jwt:
+  token:
+    tokenExpiration: 120                      # 有效时间,单位分钟
+    tokenSignKey: currentprogramsecretkey     # 当前程序签名秘钥 自定义
