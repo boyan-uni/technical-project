@@ -2,6 +2,8 @@ package com.boyan.service;
 
 import com.boyan.pojo.Headline;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.boyan.pojo.vo.PortalVo;
+import com.boyan.utils.Result;
 
 /**
 * @author boyan
@@ -10,4 +12,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface HeadlineService extends IService<Headline> {
 
+    /**
+     * 首页 headline 按关键字分页查询
+     * @param portalVo
+     * @return
+     */
+    Result findNewsPage(PortalVo portalVo);
+
+    Result showHeadlineDetail(Integer hid);
 }

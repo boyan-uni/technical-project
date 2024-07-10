@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * UserController：Controller层 表述层【只负责：简化接收request、简化发送response、调用@Service层业务逻辑，这3件事】
+ * 用户模块
  */
 
 @RestController
@@ -37,7 +38,7 @@ public class UserController {
      *   2. 根据账号进行数据库查询
      *   3. 结果封装
      */
-    @PostMapping("checkUsername")
+    @PostMapping("checkUserName")
     public Result checkUsername(String username){
         Result result = userService.checkUsername(username);
         return result;
