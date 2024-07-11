@@ -12,6 +12,7 @@ public enum ResultCodeEnum {
     USERNAME_ERROR(501,"usernameError"),
     PASSWORD_ERROR(503,"passwordError"),
     NOTLOGIN(504,"notLogin"),
+    LOGIN_EXPIRED(504,"loginExpired"),
     USERNAME_USED(505,"userNameUsed");
 
     private Integer code;

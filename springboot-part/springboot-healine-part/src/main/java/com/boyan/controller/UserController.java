@@ -2,7 +2,9 @@ package com.boyan.controller;
 
 import com.boyan.pojo.User;
 import com.boyan.service.UserService;
+import com.boyan.utils.JwtHelper;
 import com.boyan.utils.Result;
+import com.boyan.utils.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private JwtHelper jwtHelper;
 
     //TODO. 用户注册界面
 
@@ -134,4 +139,35 @@ public class UserController {
         return result;
     }
 
+    // todo. user/checkLogin 在用户模块创建一个登录状态校验接口，用于配合拦截器，在特定路径访问前进行登录校验，前端根据返回值决定跳转至哪个页面
+    /**
+     * url地址：user/checkLogin
+     * 请求方式：get
+     * 请求参数:  无
+     * 请求头： token: 用户token【元数据 使用请求头传递，而非请求参数】
+     * 响应数据：
+     * 未过期：
+     * {
+     *     "code":"200",
+     *     "message":"success",
+     *     "data":{}
+     * }
+     * 过期：
+     * {
+     *     "code":"504",
+     *     "message":"loginExpired",
+     *     "data":{}
+     * }
+     */
+    @GetMapping("checkLogin")
+    public Result checkLogin(@RequestHeader String token){
+        // 调用 jwtHelper 校验 token 是否有效：方法 boolean isExpiration(String token)；有效，返回false; 无效，返回true
+        Boolean isExpiration = jwtHelper.isExpiration(token);
+        // 根据校验结果封装 Result，无需到 Service 层
+        if (isExpiration == false) {
+            return Result.ok(null); // 封装 ResultCodeEnum.SUCCESS
+        } else {
+            return Result.build(null, ResultCodeEnum.LOGIN_EXPIRED);
+        }
+    }
 }
