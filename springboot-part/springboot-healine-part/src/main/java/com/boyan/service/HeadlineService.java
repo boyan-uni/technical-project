@@ -20,7 +20,33 @@ public interface HeadlineService extends IService<Headline> {
      */
     Result findNewsPage(PortalVo portalVo);
 
+    /**
+     * 多表查询
+     * @param hid
+     * @return
+     */
     Result showHeadlineDetail(Integer hid);
 
+    /**
+     * 发布
+     * @param token
+     * @param headlineInsertVo
+     * @return
+     */
     Result publish(String token, HeadlineInsertVo headlineInsertVo);
+
+    /**
+     * 根据 hid 查询
+     * @param hid
+     * @return
+     */
+    Result findHeadlineByHid(Integer hid);
+
+    /**
+     * 更新修改
+     * @param headline
+     * @return
+     */
+    Result updateHeadline(Headline headline);
+
 }

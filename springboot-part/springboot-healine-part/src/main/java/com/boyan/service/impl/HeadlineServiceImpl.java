@@ -101,7 +101,7 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
      * @return
      */
     @Override
-    public Result publish(String token, HeadlineInsertVo headlineInsertVo) {
+    public Result publish(String token, HeadlineInsertVo headlineInsertVo) {    // 其实直接传
         Headline headline = new Headline();
         headline.setTitle(headlineInsertVo.getTitle());
         headline.setArticle(headlineInsertVo.getArticle());
@@ -115,11 +115,42 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
         // version 和 is_deleted 由 springboot 管理
         System.out.println(headline);
         // 插入
-        int insertResult = headlineMapper.insert(headline);    // todo. 解决报错点
+        int insertResult = headlineMapper.insert(headline);    // 解决报错点：定位 Headline 的 @TableId 类型设定值
         System.out.println(insertResult);
         return Result.ok(null);
     }
 
+    /**
+     * 根据 hid 查询
+     *
+     * @param hid
+     * @return
+     */
+    @Override
+    public Result findHeadlineByHid(Integer hid) {
+        // 根据 hid 查询获得 headline
+        Headline headline = headlineMapper.selectById(hid);
+        // 封装查询结果
+        Map<String, Object> data = new HashMap<>();
+        data.put("headline", headline);
+        return Result.ok(data);
+    }
+
+    /**
+     * 更新修改
+     *
+     * @param headline
+     * @return
+     */
+    @Override
+    public Result updateHeadline(Headline headline) {
+        // 补全更新时间和版本号+1
+        headline.setUpdateTime(new Date());
+        headline.setVersion(headlineMapper.selectById(headline.getHid()).getVersion()); // 从数据库中现查最新版本号 - 乐观锁
+        // updateById(headline)
+        headlineMapper.updateById(headline);
+        return Result.ok(null);
+    }
 
 }
 
