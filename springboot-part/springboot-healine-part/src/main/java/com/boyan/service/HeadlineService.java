@@ -2,6 +2,7 @@ package com.boyan.service;
 
 import com.boyan.pojo.Headline;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.boyan.pojo.vo.HeadlineInsertVo;
 import com.boyan.pojo.vo.PortalVo;
 import com.boyan.utils.Result;
 
@@ -20,4 +21,6 @@ public interface HeadlineService extends IService<Headline> {
     Result findNewsPage(PortalVo portalVo);
 
     Result showHeadlineDetail(Integer hid);
+
+    Result publish(String token, HeadlineInsertVo headlineInsertVo);
 }

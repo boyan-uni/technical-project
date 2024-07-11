@@ -2,7 +2,9 @@ package com.boyan.service.impl;
 
 import com.boyan.pojo.dto.HeadlineDTO;
 import com.boyan.pojo.dto.HeadlineDetailDTO;
+import com.boyan.pojo.vo.HeadlineInsertVo;
 import com.boyan.pojo.vo.PortalVo;
+import com.boyan.utils.JwtHelper;
 import com.boyan.utils.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -10,9 +12,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.boyan.pojo.Headline;
 import com.boyan.service.HeadlineService;
 import com.boyan.mapper.HeadlineMapper;
+import com.boyan.utils.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +30,9 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
 
     @Autowired
     private HeadlineMapper headlineMapper;
+
+    @Autowired
+    private JwtHelper jwtHelper;
 
     /**
      * 首页数据查询
@@ -81,6 +88,36 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
 
         // 返回1查到的信息，封装到 Result 中返回上层
         return Result.ok(headlineDetailDTO);
+    }
+
+    /**
+     * 插入 headline 数据
+     * - "title":"尚硅谷宣布 ... ...",   // 文章标题
+     * - "article":"... ...",          // 文章内容
+     * - "type":"1"                    // 文章类别
+     * 以上是已知数据，需要对照数据库表补全相应值。
+     * @param token
+     * @param headlineInsertVo
+     * @return
+     */
+    @Override
+    public Result publish(String token, HeadlineInsertVo headlineInsertVo) {
+        Headline headline = new Headline();
+        headline.setTitle(headlineInsertVo.getTitle());
+        headline.setArticle(headlineInsertVo.getArticle());
+        headline.setType(headlineInsertVo.getType());
+        // 从 token 中解析 user 信息，补全 headline 所有属性信息
+        int uid = jwtHelper.getUserId(token).intValue();  // uid = publisher
+        headline.setPublisher(uid);
+        headline.setPageViews(0);
+        headline.setCreateTime(new Date());
+        headline.setUpdateTime(new Date());
+        // version 和 is_deleted 由 springboot 管理
+        System.out.println(headline);
+        // 插入
+        int insertResult = headlineMapper.insert(headline);    // todo. 解决报错点
+        System.out.println(insertResult);
+        return Result.ok(null);
     }
 
 

@@ -25,7 +25,7 @@ public class LoginProtectInterceptor implements HandlerInterceptor {
 
         String token = request.getHeader("token");
         if (StringUtils.isEmpty(token) || jwtHelper.isExpiration(token)){
-            Result result = Result.build(null, ResultCodeEnum.NOTLOGIN);
+            Result result = Result.build(null, ResultCodeEnum.LOGIN_EXPIRED);
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(result);
             response.getWriter().print(json);
