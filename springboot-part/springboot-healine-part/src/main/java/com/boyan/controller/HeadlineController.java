@@ -52,5 +52,78 @@ public class HeadlineController {
         return result;
     }
 
+    // todo. headline 修改页面 头条信息回显
+    /**
+     * url地址：headline/findHeadlineByHid
+     * 请求方式：post
+     * 请求参数: hid=1 param形成参数
+     * 请求头: token【拦截器会自己获取，不需要在 @Controller 层接收】
+     * 响应数据：
+     * 成功
+     * {
+     *     "code":"200",
+     *     "message":"success",
+     *     "data":{
+     *         "headline":{
+     *             "hid":"1",
+     *             "title":"马斯克宣布",
+     *             "article":"... ... ",
+     *             "type":"2"
+     *         }
+     *     }
+     * }
+     */
+    @PostMapping("findHeadlineByHid")
+    public Result findHeadlineByHid(Integer hid) {
+        return headlineService.findHeadlineByHid(hid);
+    }
+
+    // todo. headline 实现修改行为
+    /**
+     * url地址：headline/update
+     * 请求方式：post
+     * 请求头: token【拦截器会自己获取，不需要在 @Controller 层接收】
+     * 请求参数: JSON
+     * {
+     *     "hid":"1",
+     *     "title":"尚硅谷宣布 ... ...",
+     *     "article":"... ...",
+     *     "type":"2"
+     * }
+     * 响应数据：
+     * 成功
+     * {
+     *     "code":"200",
+     *     "message":"success",
+     *     "data":{}
+     * }
+     */
+    @PostMapping("update")
+    public Result updateHeadline(@RequestBody Headline headline) {
+        Result result = headlineService.updateHeadline(headline);
+        return result;
+    }
+
+    // todo. headline 实现删除行为【逻辑删除 is_deleted 字段由0-1，整个过程由 MP 框架实现】
+    /**
+     * url地址：headline/removeByHid
+     * 请求方式：post
+     * 请求头: token【拦截器会自己获取，不需要在 @Controller 层接收】
+     * 请求参数: hid=1 param形成参数
+     * 响应数据：
+     * 成功
+     * {
+     *     "code":"200",
+     *     "message":"success",
+     *     "data":{}
+     * }
+     */
+    @PostMapping("removeByHid")
+    public Result removeById(Integer hid) {
+        boolean flag = headlineService.removeById(hid);
+        System.out.println(flag);
+        return Result.ok(null);
+    }
+
 
 }

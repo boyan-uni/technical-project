@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Headline implements Serializable {
 
-    @TableId(type = IdType.AUTO) // 默认值，雪花算法
+    @TableId(type = IdType.AUTO)
     private Integer hid;
 
     private String title;
