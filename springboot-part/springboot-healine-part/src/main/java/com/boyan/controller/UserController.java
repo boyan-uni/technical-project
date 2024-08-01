@@ -3,8 +3,8 @@ package com.boyan.controller;
 import com.boyan.pojo.User;
 import com.boyan.service.UserService;
 import com.boyan.utils.JwtHelper;
-import com.boyan.utils.Result;
-import com.boyan.utils.ResultCodeEnum;
+import com.boyan.utils.BaseResponse;
+import com.boyan.utils.ResponseCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,9 +44,9 @@ public class UserController {
      *   3. 结果封装
      */
     @PostMapping("checkUserName")
-    public Result checkUsername(String username){
-        Result result = userService.checkUsername(username);
-        return result;
+    public BaseResponse checkUsername(String username){
+        BaseResponse baseResponse = userService.checkUsername(username);
+        return baseResponse;
     }
 
     /**
@@ -71,9 +71,9 @@ public class UserController {
      *   3. 判断结果,成 返回200 失败 505
      */
     @PostMapping("regist")
-    public Result register(@RequestBody User user){
-        Result result = userService.register(user);
-        return result;
+    public BaseResponse register(@RequestBody User user){
+        BaseResponse baseResponse = userService.register(user);
+        return baseResponse;
     }
 
     //TODO. 用户登录界面
@@ -103,9 +103,9 @@ public class UserController {
      *    4. 失败,判断账号还是密码错误,封装对应的枚举错误即可
      */
     @PostMapping("login")
-    public Result login(@RequestBody User user){
-        Result result = userService.login(user);
-        return result;
+    public BaseResponse login(@RequestBody User user){
+        BaseResponse baseResponse = userService.login(user);
+        return baseResponse;
     }
 
     /**
@@ -134,9 +134,9 @@ public class UserController {
      */
 
     @GetMapping("getUserInfo")
-    public Result getUserInfo(@RequestHeader String token){
-        Result result = userService.getUserInfo(token);
-        return result;
+    public BaseResponse getUserInfo(@RequestHeader String token){
+        BaseResponse baseResponse = userService.getUserInfo(token);
+        return baseResponse;
     }
 
     // todo. user/checkLogin 在用户模块创建一个登录状态校验接口，用于配合拦截器，在特定路径访问前进行登录校验，前端根据返回值决定跳转至哪个页面
@@ -160,14 +160,14 @@ public class UserController {
      * }
      */
     @GetMapping("checkLogin")
-    public Result checkLogin(@RequestHeader String token){
+    public BaseResponse checkLogin(@RequestHeader String token){
         // 调用 jwtHelper 校验 token 是否有效：方法 boolean isExpiration(String token)；有效，返回false; 无效，返回true
         Boolean isExpiration = jwtHelper.isExpiration(token);
-        // 根据校验结果封装 Result，无需到 Service 层
+        // 根据校验结果封装 BaseResponse，无需到 Service 层
         if (isExpiration == false) {
-            return Result.ok(null); // 封装 ResultCodeEnum.SUCCESS
+            return BaseResponse.ok(null); // 封装 ResponseCodeEnum.SUCCESS
         } else {
-            return Result.build(null, ResultCodeEnum.LOGIN_EXPIRED);
+            return BaseResponse.build(null, ResponseCodeEnum.LOGIN_EXPIRED);
         }
     }
 }

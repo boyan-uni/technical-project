@@ -9,12 +9,12 @@
     <resultMap id="selectOrderWithCustomerResultMap" type="order">
         <!-- Order 类型 属性映射 -->
         <id column="order_id" property="orderId"/><!-- 主键 -->
-        <!--result column="order_name" property="orderName"/--><!-- 普通属性 -->
-        <!--result column="customer_id" property="customerId"/--><!-- 普通属性 -->
+        <!--baseResponse column="order_name" property="orderName"/--><!-- 普通属性 -->
+        <!--baseResponse column="customer_id" property="customerId"/--><!-- 普通属性 -->
         <!-- 进一步配置 Order - Customer 对一映射 查询结果实体关系 -->
         <association property="customer" javaType="customer">
             <id column="customer_id" property="customerId"/><!-- 主键 -->
-            <!--result column="customer_name" property="customerName"/--><!-- 普通属性 -->
+            <!--baseResponse column="customer_name" property="customerName"/--><!-- 普通属性 -->
         </association>
     </resultMap>
 

@@ -6,11 +6,11 @@
 
     <resultMap id="BaseResultMap" type="com.boyan.pojo.User">
             <id property="uid" column="uid" jdbcType="INTEGER"/>
-            <result property="username" column="username" jdbcType="VARCHAR"/>
-            <result property="userPwd" column="user_pwd" jdbcType="VARCHAR"/>
-            <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
-            <result property="version" column="version" jdbcType="INTEGER"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <baseResponse property="username" column="username" jdbcType="VARCHAR"/>
+            <baseResponse property="userPwd" column="user_pwd" jdbcType="VARCHAR"/>
+            <baseResponse property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+            <baseResponse property="version" column="version" jdbcType="INTEGER"/>
+            <baseResponse property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">

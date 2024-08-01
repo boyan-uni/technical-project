@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.boyan.pojo.User;
 import com.boyan.service.UserService;
 import com.boyan.mapper.UserMapper;
+import com.boyan.utils.BaseResponse;
 import com.boyan.utils.MD5Util;
-import com.boyan.utils.Result;
-import com.boyan.utils.ResultCodeEnum;
+import com.boyan.utils.ResponseCodeEnum;
 import com.boyan.utils.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      *   3. 结果封装
      */
     @Override
-    public Result checkUsername(String username) {
+    public BaseResponse checkUsername(String username) {
         // 封装条件查询：看username是否已经被占用
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUsername, username);
@@ -59,11 +59,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 调用持久层方法
         User user = userMapper.selectOne(queryWrapper);
 
-        // 封装查询结果到 Result，并返回 Result
+        // 封装查询结果到 BaseResponse，并返回 BaseResponse
         if (user != null) {
-            return Result.build(null, ResultCodeEnum.USERNAME_USED);
+            return BaseResponse.build(null, ResponseCodeEnum.USERNAME_USED);
         }
-        return Result.ok(null);
+        return BaseResponse.ok(null);
     }
 
 
@@ -89,7 +89,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      *   3. 判断结果,成 返回200 失败 505
      */
     @Override
-    public Result register(User user) {
+    public BaseResponse register(User user) {
         // 封装条件查询：二次验证，防止从上次验证到提交之间 username 被其他用户注册
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUsername, user.getUsername());
@@ -97,7 +97,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Long count = userMapper.selectCount(queryWrapper);
         // 如果数据库中已经有了同名的用户，则返回错误信息
         if (count != 0) {
-            return Result.build(null, ResultCodeEnum.USERNAME_USED);
+            return BaseResponse.build(null, ResponseCodeEnum.USERNAME_USED);
         }
         // 否则，正确执行插入操作
         // 1. 对用户密码进行加密后
@@ -106,7 +106,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         int rows = userMapper.insert(user);
         // 3. 返回操作结果
         System.out.println("rows = " + rows);
-        return Result.ok(null);
+        return BaseResponse.ok(null);
     }
 
     //TODO. 用户登录界面
@@ -136,7 +136,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      *    4. 失败,判断账号还是密码错误,封装对应的枚举错误即可
      */
     @Override
-    public Result login(User user) {
+    public BaseResponse login(User user) {
         // 封装 LambdaQueryWrapper 条件查询，返回数据库中查到的用户对象
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUsername, user.getUsername());
@@ -144,12 +144,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         // 账号判断
         if (loginUser == null) {
-            return  Result.build(null, ResultCodeEnum.USERNAME_ERROR);  // 输入用户名错误的情况；
+            return  BaseResponse.build(null, ResponseCodeEnum.USERNAME_ERROR);  // 输入用户名错误的情况；
         }
 
         // 密码判断（对比 MD5 加密过的密码形式）
         if (!loginUser.getUserPwd().equals(MD5Util.encrypt(user.getUserPwd()))) {
-            return Result.build(null, ResultCodeEnum.PASSWORD_ERROR);   // 输入密码错误的情况；
+            return BaseResponse.build(null, ResponseCodeEnum.PASSWORD_ERROR);   // 输入密码错误的情况；
         }
 
         // 账号密码均正确，可以成功登录，对当前用户生成唯一 token 并返回给上层传到前端
@@ -159,7 +159,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Map<String, Object> data = new HashMap<>();
         data.put("token", token);
 
-        return Result.ok(data);
+        return BaseResponse.ok(data);
     }
 
     /**
@@ -187,10 +187,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      *    4.失败返回504 (本次先写到当前业务,后期提取到拦截器和全局异常处理器)
      */
     @Override
-    public Result getUserInfo(String token) {
+    public BaseResponse getUserInfo(String token) {
         // 判断 token 是否过期
         if (jwtHelper.isExpiration(token)) {
-            return Result.build(null, ResultCodeEnum.NOTLOGIN);
+            return BaseResponse.build(null, ResponseCodeEnum.NOTLOGIN);
         }
         // 调用 jwtHelper 从 token 中解析获取 userId
         int uid = jwtHelper.getUserId(token).intValue(); // 转换格式为 int 和数据库表属性相同；
@@ -201,14 +201,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         // 如果 显示没有 userId 的情况，则返回 504 未登录错误码
         if (loginUser == null){
-            return Result.build(null, ResultCodeEnum.NOTLOGIN);
+            return BaseResponse.build(null, ResponseCodeEnum.NOTLOGIN);
         }
         // 如果 loginUser 非空，则需要把 userPwd 置空【不可以显示出现用户密码在整个执行过程中】，然后以 hashmap 的形式返回结果【该用户的详细信息】
         loginUser.setUserPwd(null);
         Map<String, Object> data = new HashMap<>();
         data.put("loginUser", loginUser);
 
-        return Result.ok(data);
+        return BaseResponse.ok(data);
     }
 
 }

@@ -1,10 +1,8 @@
 package com.boyan.service;
 
-import com.boyan.mapper.UserMapper;
 import com.boyan.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.boyan.utils.Result;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.boyan.utils.BaseResponse;
 
 /**
  * UserService：@Service 业务逻辑层
@@ -15,11 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public interface UserService extends IService<User> {
 
 
-    Result checkUsername(String username);
+    BaseResponse checkUsername(String username);
 
-    Result register(User user);
+    BaseResponse register(User user);
 
-    Result login(User user);
+    BaseResponse login(User user);
 
-    Result getUserInfo(String token);
+    BaseResponse getUserInfo(String token);
 }

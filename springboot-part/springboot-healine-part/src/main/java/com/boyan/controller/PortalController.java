@@ -4,7 +4,7 @@ import com.boyan.pojo.Type;
 import com.boyan.service.HeadlineService;
 import com.boyan.service.TypeService;
 import com.boyan.pojo.vo.PortalVo;
-import com.boyan.utils.Result;
+import com.boyan.utils.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,11 +47,11 @@ public class PortalController {
      * }
      */
     @GetMapping("findAllTypes")
-    public Result findAllTypes()
+    public BaseResponse findAllTypes()
     {
         // 直接调用业务层IService，查询全部数据，无需到BaseMapper持久层
         List<Type> types = typeService.list();
-        return Result.ok(types);
+        return BaseResponse.ok(types);
     }
 
     // todo. 分页查询首页头条信息
@@ -95,7 +95,7 @@ public class PortalController {
      * }
      */
     @PostMapping("findNewsPage")
-    public Result findNewsPage(@RequestBody PortalVo portalVo)
+    public BaseResponse findNewsPage(@RequestBody PortalVo portalVo)
     {
         // 调用 Headline Service，因为查询的实体本身是 Headline
         return headlineService.findNewsPage(portalVo);
@@ -128,7 +128,7 @@ public class PortalController {
      * }
      */
     @PostMapping("showHeadlineDetail")
-    public Result showHeadlineDetail(Integer hid)
+    public BaseResponse showHeadlineDetail(Integer hid)
     {
         // 调用业务层，查询数据
         return headlineService.showHeadlineDetail(hid);

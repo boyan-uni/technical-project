@@ -4,15 +4,14 @@ import com.boyan.pojo.dto.HeadlineDTO;
 import com.boyan.pojo.dto.HeadlineDetailDTO;
 import com.boyan.pojo.vo.HeadlineInsertVo;
 import com.boyan.pojo.vo.PortalVo;
+import com.boyan.utils.BaseResponse;
 import com.boyan.utils.JwtHelper;
-import com.boyan.utils.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.boyan.pojo.Headline;
 import com.boyan.service.HeadlineService;
 import com.boyan.mapper.HeadlineMapper;
-import com.boyan.utils.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,12 +45,12 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
      * @return
      */
     @Override
-    public Result findNewsPage(PortalVo portalVo) {
+    public BaseResponse findNewsPage(PortalVo portalVo) {
         Page<HeadlineDTO> page = new Page<>(portalVo.getPageNum(), portalVo.getPageSize());
 
         IPage<HeadlineDTO> resultPage = headlineMapper.selectMyPage(page, portalVo);  // 自定义持久层查询方法
 
-        // 封装分页信息到 Result 中
+        // 封装分页信息到 BaseResponse 中
         Map<String, Object> data = new HashMap<>();
         data.put("pageData", resultPage.getRecords());    // 从 page 对象中取结果
         data.put("pageNum", resultPage.getCurrent());
@@ -62,7 +61,7 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
         Map<String, Object> pageInfoMap = new HashMap<>();
         pageInfoMap.put("pageInfo", data);
 
-        return Result.ok(pageInfoMap);
+        return BaseResponse.ok(pageInfoMap);
     }
 
     /**
@@ -74,7 +73,7 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
      * @return
      */
     @Override
-    public Result showHeadlineDetail(Integer hid) {
+    public BaseResponse showHeadlineDetail(Integer hid) {
         // 1.对比数据库表和接口所需信息发现是多表查询：type->typeName、计算pastHours、publisher(uid)->nick_name【自定义方法】
         HeadlineDetailDTO headlineDetailDTO = headlineMapper.selectHeadlineDetail(hid);
 
@@ -86,8 +85,8 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
         headline.setVersion(headlineDetailDTO.getVersion());         // 设置版本
         headlineMapper.updateById(headline);
 
-        // 返回1查到的信息，封装到 Result 中返回上层
-        return Result.ok(headlineDetailDTO);
+        // 返回1查到的信息，封装到 BaseResponse 中返回上层
+        return BaseResponse.ok(headlineDetailDTO);
     }
 
     /**
@@ -101,7 +100,7 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
      * @return
      */
     @Override
-    public Result publish(String token, HeadlineInsertVo headlineInsertVo) {    // 其实直接传
+    public BaseResponse publish(String token, HeadlineInsertVo headlineInsertVo) {    // 其实直接传
         Headline headline = new Headline();
         headline.setTitle(headlineInsertVo.getTitle());
         headline.setArticle(headlineInsertVo.getArticle());
@@ -117,7 +116,7 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
         // 插入
         int insertResult = headlineMapper.insert(headline);    // 解决报错点：定位 Headline 的 @TableId 类型设定值
         System.out.println(insertResult);
-        return Result.ok(null);
+        return BaseResponse.ok(null);
     }
 
     /**
@@ -127,13 +126,13 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
      * @return
      */
     @Override
-    public Result findHeadlineByHid(Integer hid) {
+    public BaseResponse findHeadlineByHid(Integer hid) {
         // 根据 hid 查询获得 headline
         Headline headline = headlineMapper.selectById(hid);
         // 封装查询结果
         Map<String, Object> data = new HashMap<>();
         data.put("headline", headline);
-        return Result.ok(data);
+        return BaseResponse.ok(data);
     }
 
     /**
@@ -143,13 +142,13 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline> i
      * @return
      */
     @Override
-    public Result updateHeadline(Headline headline) {
+    public BaseResponse updateHeadline(Headline headline) {
         // 补全更新时间和版本号+1
         headline.setUpdateTime(new Date());
         headline.setVersion(headlineMapper.selectById(headline.getHid()).getVersion()); // 从数据库中现查最新版本号 - 乐观锁
         // updateById(headline)
         headlineMapper.updateById(headline);
-        return Result.ok(null);
+        return BaseResponse.ok(null);
     }
 
 }

@@ -4,7 +4,7 @@ import com.boyan.pojo.Headline;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.boyan.pojo.vo.HeadlineInsertVo;
 import com.boyan.pojo.vo.PortalVo;
-import com.boyan.utils.Result;
+import com.boyan.utils.BaseResponse;
 
 /**
 * @author boyan
@@ -18,14 +18,14 @@ public interface HeadlineService extends IService<Headline> {
      * @param portalVo
      * @return
      */
-    Result findNewsPage(PortalVo portalVo);
+    BaseResponse findNewsPage(PortalVo portalVo);
 
     /**
      * 多表查询
      * @param hid
      * @return
      */
-    Result showHeadlineDetail(Integer hid);
+    BaseResponse showHeadlineDetail(Integer hid);
 
     /**
      * 发布
@@ -33,20 +33,20 @@ public interface HeadlineService extends IService<Headline> {
      * @param headlineInsertVo
      * @return
      */
-    Result publish(String token, HeadlineInsertVo headlineInsertVo);
+    BaseResponse publish(String token, HeadlineInsertVo headlineInsertVo);
 
     /**
      * 根据 hid 查询
      * @param hid
      * @return
      */
-    Result findHeadlineByHid(Integer hid);
+    BaseResponse findHeadlineByHid(Integer hid);
 
     /**
      * 更新修改
      * @param headline
      * @return
      */
-    Result updateHeadline(Headline headline);
+    BaseResponse updateHeadline(Headline headline);
 
 }

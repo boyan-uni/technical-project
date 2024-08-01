@@ -6,9 +6,9 @@
 
     <resultMap id="BaseResultMap" type="com.boyan.pojo.Type">
             <id property="tid" column="tid" jdbcType="INTEGER"/>
-            <result property="tname" column="tname" jdbcType="VARCHAR"/>
-            <result property="version" column="version" jdbcType="INTEGER"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <baseResponse property="tname" column="tname" jdbcType="VARCHAR"/>
+            <baseResponse property="version" column="version" jdbcType="INTEGER"/>
+            <baseResponse property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">

@@ -68,9 +68,9 @@
                     - property 属性 - 用于指定Java实体类属性名； -->
         <id column="emp_id" property="empId"/>
 
-        <!-- result 标签 - 设置普通字段和Java实体类属性之间的关系 -->
-        <result column="emp_name" property="empName"/>
-        <result column="emp_salary" property="empSalary"/>
+        <!-- baseResponse 标签 - 设置普通字段和Java实体类属性之间的关系 -->
+        <baseResponse column="emp_name" property="empName"/>
+        <baseResponse column="emp_salary" property="empSalary"/>
     </resultMap>
     <select id="selectEmployeeByRM" resultMap="selectEmployeeByResultMap">
         select emp_id,emp_name,emp_salary from t_emp where emp_id=#{empId}

@@ -1,9 +1,9 @@
 package com.boyan.interceptor;
 
 import com.alibaba.druid.util.StringUtils;
+import com.boyan.utils.BaseResponse;
 import com.boyan.utils.JwtHelper;
-import com.boyan.utils.Result;
-import com.boyan.utils.ResultCodeEnum;
+import com.boyan.utils.ResponseCodeEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,9 +25,9 @@ public class LoginProtectInterceptor implements HandlerInterceptor {
 
         String token = request.getHeader("token");
         if (StringUtils.isEmpty(token) || jwtHelper.isExpiration(token)){
-            Result result = Result.build(null, ResultCodeEnum.LOGIN_EXPIRED);
+            BaseResponse baseResponse = BaseResponse.build(null, ResponseCodeEnum.LOGIN_EXPIRED);
             ObjectMapper objectMapper = new ObjectMapper();
-            String json = objectMapper.writeValueAsString(result);
+            String json = objectMapper.writeValueAsString(baseResponse);
             response.getWriter().print(json);
             // 拦截
             return false;

@@ -6,8 +6,8 @@
 
     <resultMap id="BaseResultMap" type="com.boyan.pojo.Schedule">
             <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="title" column="title" jdbcType="VARCHAR"/>
-            <result property="completed" column="completed" jdbcType="TINYINT"/>
+            <baseResponse property="title" column="title" jdbcType="VARCHAR"/>
+            <baseResponse property="completed" column="completed" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

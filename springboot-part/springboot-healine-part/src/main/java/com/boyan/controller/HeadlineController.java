@@ -3,7 +3,7 @@ package com.boyan.controller;
 import com.boyan.pojo.Headline;
 import com.boyan.pojo.vo.HeadlineInsertVo;
 import com.boyan.service.HeadlineService;
-import com.boyan.utils.Result;
+import com.boyan.utils.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,10 +46,10 @@ public class HeadlineController {
      *  3. 插入数据即可
      */
     @PostMapping("publish")
-    public Result publish(@RequestHeader String token, @RequestBody HeadlineInsertVo headlineInsertVo) {
+    public BaseResponse publish(@RequestHeader String token, @RequestBody HeadlineInsertVo headlineInsertVo) {
         // 在执行这个方法前会调用拦截器通过 token 校验当前 user 的登录情况的，所以到这里了一定是已经通过校验了，是已登录的状态
-        Result result = headlineService.publish(token, headlineInsertVo);
-        return result;
+        BaseResponse baseResponse = headlineService.publish(token, headlineInsertVo);
+        return baseResponse;
     }
 
     // todo. headline 修改页面 头条信息回显
@@ -74,7 +74,7 @@ public class HeadlineController {
      * }
      */
     @PostMapping("findHeadlineByHid")
-    public Result findHeadlineByHid(Integer hid) {
+    public BaseResponse findHeadlineByHid(Integer hid) {
         return headlineService.findHeadlineByHid(hid);
     }
 
@@ -99,9 +99,9 @@ public class HeadlineController {
      * }
      */
     @PostMapping("update")
-    public Result updateHeadline(@RequestBody Headline headline) {
-        Result result = headlineService.updateHeadline(headline);
-        return result;
+    public BaseResponse updateHeadline(@RequestBody Headline headline) {
+        BaseResponse baseResponse = headlineService.updateHeadline(headline);
+        return baseResponse;
     }
 
     // todo. headline 实现删除行为【逻辑删除 is_deleted 字段由0-1，整个过程由 MP 框架实现】
@@ -119,10 +119,10 @@ public class HeadlineController {
      * }
      */
     @PostMapping("removeByHid")
-    public Result removeById(Integer hid) {
+    public BaseResponse removeById(Integer hid) {
         boolean flag = headlineService.removeById(hid);
         System.out.println(flag);
-        return Result.ok(null);
+        return BaseResponse.ok(null);
     }
 
 

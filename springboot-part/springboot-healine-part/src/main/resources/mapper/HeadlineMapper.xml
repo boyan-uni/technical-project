@@ -6,15 +6,15 @@
 
     <resultMap id="BaseResultMap" type="com.boyan.pojo.Headline">
         <id property="hid" column="hid" jdbcType="INTEGER"/>
-        <result property="title" column="title" jdbcType="VARCHAR"/>
-        <result property="article" column="article" jdbcType="VARCHAR"/>
-        <result property="type" column="type" jdbcType="INTEGER"/>
-        <result property="publisher" column="publisher" jdbcType="INTEGER"/>
-        <result property="pageViews" column="page_views" jdbcType="INTEGER"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-        <result property="version" column="version" jdbcType="INTEGER"/>
-        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <baseResponse property="title" column="title" jdbcType="VARCHAR"/>
+        <baseResponse property="article" column="article" jdbcType="VARCHAR"/>
+        <baseResponse property="type" column="type" jdbcType="INTEGER"/>
+        <baseResponse property="publisher" column="publisher" jdbcType="INTEGER"/>
+        <baseResponse property="pageViews" column="page_views" jdbcType="INTEGER"/>
+        <baseResponse property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <baseResponse property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <baseResponse property="version" column="version" jdbcType="INTEGER"/>
+        <baseResponse property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
